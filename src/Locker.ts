@@ -7,16 +7,16 @@ export class Locker {
     }
 
 
-    public lockForMember(member_id: string): void
+    public lockForMember(guild_id: string, member_id: string): void
     {
-        this.lock.set(member_id);
+        this.lock.set(guild_id+member_id);
         setTimeout(() => {
-            this.lock.delete(member_id);
+            this.lock.delete(guild_id+member_id);
         }, this.lockPeriod);
     }
 
-    public isLockedForMember(member_id: string): boolean
+    public isLockedForMember(guild_id, member_id: string): boolean
     {
-        return this.lock.has(member_id);
+        return this.lock.has(guild_id+member_id);
     }
 }
