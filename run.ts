@@ -18,7 +18,17 @@ discordClient.on("message", async msg => {
     // @ts-ignore
     channel = msg.channel;
 
-    if ((msg.content === '!предсказание' || msg.content === '<@657822824949481483> мочи, дед' || msg.content === '<@!657822824949481483> мочи, дед') && !locker.isLockedForMember(msg.guild.id, msg.author.id)) {
+    if (msg.content === '!предсказание' && !locker.isLockedForMember(msg.guild.id, msg.author.id)) {
+        msg.channel.send("<@"+msg.author.id+"> "+phrasesGenerator.getOne(msg.author.id)).catch(() => {
+            console.log("No msg send permissions for "+channel.name+" in "+msg.guild.name);
+        });
+        msg.delete(0).catch(() => {
+            console.log("No msg delete permissions for "+channel.name+" in "+msg.guild.name);
+        });
+        locker.lockForMember(msg.guild.id, msg.author.id);
+    }
+
+    if ((msg.content === '<@657822824949481483> мочи, дед' || msg.content === '<@!657822824949481483> мочи, дед') && !locker.isLockedForMember(msg.guild.id, msg.author.id)) {
         msg.channel.send("<@"+msg.author.id+"> "+phrasesGenerator.getOne(msg.author.id)).catch(() => {
             console.log("No msg send permissions for "+channel.name+" in "+msg.guild.name);
         });
