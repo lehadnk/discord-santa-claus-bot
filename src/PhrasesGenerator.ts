@@ -2,23 +2,33 @@ export class PhrasesGenerator
 {
     public getOne(member_id: string): string
     {
-        let phrases = member_id === '229173015408017409' ? this.getForDobrik() : this.getForAll();
+        let phrases = this.getForMember(member_id);
         let key = Math.floor(Math.random() * phrases.length);
         return phrases[key];
     }
 
-    private getForDobrik(): string[]
-    {
-        return [
+    private getForMember(member_id: string) {
+        if (this.phrases[member_id] !== undefined) {
+            return this.phrases[member_id];
+        }
+
+        return this.phrases.default;
+    }
+
+    private phrases = {
+        // Dobrik
+        '229173015408017409': [
             "Запомни, Добрик, бритая киска, а не бритая кошка.",
             "Добра тебе, Добрик, и твоей кошке Ф'Таагн, Разрушительнице Миров!",
             "Всего тебе хорошего, Добрик, и разбана в #dank-memes!",
-        ];
-    }
-
-    private getForAll(): string[]
-    {
-        return [
+        ],
+        // Zuiva
+        '227131579321942016': [
+            'В новом году эти нищеброды не будут затирать тебе о справедливых ценах!',
+            'В новом году ты совершенно точно получишь рейдспот!',
+            'Желаю тебе в этом году заработать миллиард, Зуйва',
+        ],
+        'default': [
             'В новом году ты передамажишь всех там, где и не мечтал(а)!',
             'Тебя ждут новые приятные встречи на просторах Азерота!',
             'В этом году тебя возьмут в ключ, даже не глядя на Рио!',
@@ -61,6 +71,6 @@ export class PhrasesGenerator
             'Близзард порадует тебя в новом году!',
             'Именно твою специализацию будут апать!',
             'Тебя не коснутся очередные нерфы!',
-        ];
-    }
+        ]
+    };
 }
