@@ -32,9 +32,6 @@ discordClient.on("message", async msg => {
         msg.channel.send("<@"+msg.author.id+"> "+phrasesGenerator.getOne(msg.author.id)).catch(() => {
             console.log("No msg send permissions for "+channel.name+" in "+msg.guild.name);
         });
-        msg.delete(0).catch(() => {
-            console.log("No msg delete permissions for "+channel.name+" in "+msg.guild.name);
-        });
         locker.lockForMember(msg.guild.id, msg.author.id);
     }
 });
